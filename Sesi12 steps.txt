@@ -1,0 +1,47 @@
+Sesi 12
+=====================
+atur env
+
+php migrate:fresh
+php artisan db:seed --class=JurusanSeeder
+
+cek view('mahasiswa.show')
+
+======================
+Session
+======================
+buat SessionController
+
+======================
+Middleware (membatasi routing)
+======================
+php artisan make:middleware SetLocale
+
+pada SetLocale
+use Illuminate\Support\Facades\App;
+
+$locale = $request->session()->get('locale', config('app.locale'));
+App::setLocale($locale);
+
+
+Lalu daftarin middleware
+ke app.php punya bootstrap
+->withMiddleware(function (Middleware $middleware) {
+        //
+        $middleware->web([
+            App\Http\Middleware\SetLocale::class,
+        ]);
+    })
+
+php artisan make:middleware CheckRole  
+
+======================
+Authentication (Register, Login, Logout, Setting profile)
+======================
+model Auth 
+- Laravel ui auth (composer require laravel/ui)
+- Laravel Breeze
+
+php artisan ui bootstrap --auth
+
+
